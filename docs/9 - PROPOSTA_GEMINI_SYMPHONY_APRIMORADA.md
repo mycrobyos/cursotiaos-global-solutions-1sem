@@ -157,7 +157,7 @@ Dashboard de onboarding que transforma tarefas burocráticas e treinamentos em *
 ### Stack Tecnológico (Versão Hackathon)
 
 | Disciplina | Tecnologia | Aplicação |
-|------------|------------|-----------||
+|------------|------------|-----------|
 | **Back-end** | Python (Flask ou FastAPI) | API REST simples |
 | **Front-end** | React (ou HTML/CSS/JS simples) | Dashboard e interface |
 | **Banco de Dados** | SQLite ou PostgreSQL local | Perfis, logs, progresso |
