@@ -12,7 +12,7 @@ body {
 }
 
 .container {
-    max-width: 900px;
+    max-width: 400px;
     margin: 0 auto;
     background: white;
     border-radius: 20px;
@@ -28,19 +28,20 @@ header {
 }
 
 header h1 {
-    font-size: 2.5em;
-    margin-bottom: 10px;
+    font-size: 1.75em;
+    margin-bottom: 7px;
 }
 
 header p {
     opacity: 0.9;
-    font-size: 1.1em;
+    font-size: 0.77em;
 }
 
 .tabs {
     display: flex;
     background: #f8f9fa;
-    border-bottom: 2px solid #e9ecef;
+    border-top: 2px solid #e9ecef;
+    margin-top: 20px;
 }
 
 .tab {
@@ -59,13 +60,15 @@ header p {
 
 .tab.active {
     background: white;
-    border-bottom: 3px solid #667eea;
+    border-top: 3px solid #667eea;
     font-weight: bold;
 }
 
 .tab-content {
     display: none;
     padding: 30px;
+    height: 500px;
+    overflow-y: auto;
 }
 
 .tab-content.active {
@@ -74,7 +77,7 @@ header p {
 
 /* Chat */
 .chat-container {
-    height: 500px;
+    height: 100%;
     display: flex;
     flex-direction: column;
 }
