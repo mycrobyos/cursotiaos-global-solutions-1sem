@@ -1,4 +1,4 @@
-# 🎵 Symphony MVP - Guia de Execução Rápida
+# HumanIza MVP - Assistente de Integração e Carreira
 
 ## 🚀 Setup em 5 Minutos
 
@@ -56,7 +56,7 @@ Acesse: `http://localhost:8000`
 
 ## 📸 Como Demonstrar
 
-### 1. Chat com o Maestro
+### 1. Chat com a Iza
 - Pergunte: "quais são os benefícios?"
 - Pergunte: "qual o horário de trabalho?"
 - Veja respostas inteligentes (se configurou Gemini) ou FAQs
@@ -108,7 +108,7 @@ Acesse: `http://localhost:8000`
 ## 📊 Estrutura do Projeto
 
 ```
-symphony-mvp/
+humaniza-mvp/
 ├── data/
 │   ├── generate_profiles.py  ← Gera 200 perfis
 │   └── profiles.csv          ← Dataset gerado

@@ -1,10 +1,10 @@
-# Global Solutions 2025.2 - Symphony: O Assistente de Integração e Carreira
+# Global Solutions 2025.2 - HumanIza: O Assistente de Integração e Carreira
 
 ---
 
 ## 📋 CAPA
 
-**Projeto:** Symphony - Assistente de Integração e Carreira  
+**Projeto:** HumanIza - Assistente de Integração e Carreira  
 **Contexto:** Global Solutions 2025.2 - O Futuro do Trabalho  
 **Tema:** Como tornar o trabalho mais humano, inclusivo e sustentável  
 
@@ -37,10 +37,10 @@ Este cenário gera:
 
 ### Objetivos do Projeto
 
-O **Symphony** foi desenvolvido para transformar o onboarding tradicional em uma experiência mais **humana, inclusiva e sustentável**, atacando diretamente os três pilares do desafio Global Solutions 2025.2:
+O **HumanIza** foi desenvolvido para transformar o onboarding tradicional em uma experiência mais **humana, inclusiva e sustentável**, atacando diretamente os três pilares do desafio Global Solutions 2025.2:
 
 #### 🤝 Mais Humano
-- Substituir portais estáticos por um assistente de IA amigável (o "Maestro")
+- Substituir portais estáticos por um assistente de IA amigável (a "Iza")
 - Facilitar conexões reais entre pessoas através de mentoria inteligente
 - Liberar o RH para focar em interações humanas de alto valor
 - Reduzir ansiedade e solidão dos novos colaboradores
@@ -59,7 +59,7 @@ O **Symphony** foi desenvolvido para transformar o onboarding tradicional em uma
 
 ### Solução Proposta
 
-O Symphony combina **três eixos temáticos** do desafio Global Solutions:
+O HumanIza combina **três eixos temáticos** do desafio Global Solutions:
 - **Bots como parceiros** (Eixo 3): Chatbot IA para suporte personalizado
 - **Recrutamento e inclusão ética** (Eixo 5): Sistema de mentoria com algoritmos justos
 - **Soluções gamificadas** (Eixo 6): Trilha de missões para engajamento
@@ -104,9 +104,9 @@ O Symphony foi desenvolvido como uma aplicação web modular com três component
 
 ### Módulos Implementados
 
-#### 1. 🎵 Maestro - Chatbot Inteligente (Eixo 3)
+#### 1. 🤝 Iza - Chatbot Inteligente (Eixo 3)
 
-**Funcionalidade:** Assistente de IA que responde perguntas sobre a empresa e guia o onboarding.
+**Funcionalidade:** Assistente de IA feminina que responde perguntas sobre a empresa e guia o onboarding.
 
 **Implementação Técnica:**
 - **Base de Conhecimento:** 5 FAQs essenciais (benefícios, horários, férias, cultura, treinamento)
@@ -244,7 +244,7 @@ tfidf_matrix = vectorizer.fit_transform([user_text] + mentor_texts)
 
 ### Métricas Funcionais Alcançadas
 
-#### ✅ Sistema de Chat - Maestro
+#### ✅ Sistema de Chat - Iza
 - **Respostas em tempo real** para 5 categorias de perguntas
 - **Taxa de resposta:** 100% (FAQ + fallback inteligente)  
 - **Tempo médio de resposta:** < 2 segundos
@@ -394,7 +394,7 @@ O futuro do trabalho será, de fato, **mais humano, mais inclusivo e mais susten
 
 ```python
 """
-Backend Flask para o Symphony MVP
+Backend Flask para o HumanIza MVP
 Sistema de recomendação de mentores usando TF-IDF
 """
 
@@ -524,7 +524,7 @@ if __name__ == '__main__':
 
 ```python
 """
-Gerador de dataset sintético para demonstração do Symphony
+Gerador de dataset sintético para demonstração do HumanIza
 Cria 200 perfis realistas usando a biblioteca Faker
 """
 
@@ -623,7 +623,7 @@ if __name__ == '__main__':
 
 ```javascript
 /**
- * Frontend do Symphony MVP
+ * Frontend do HumanIza MVP
  * Gerencia interface de chat, recomendações e gamificação
  */
 
@@ -898,8 +898,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 ```r
 ---
-title: "Symphony - Análise Exploratória de Dados"
-author: "Equipe Symphony"
+title: "HumanIza - Análise Exploratória de Dados"
+author: "Equipe HumanIza"
 date: "`r Sys.Date()`"
 output: html_document
 ---
@@ -973,7 +973,7 @@ ggplot(dept_stats, aes(x = reorder(departamento, n), y = n, fill = departamento)
     subtitle = "Dataset balanceado com 47-53 perfis por área",
     x = "Departamento",
     y = "Número de Perfis",
-    caption = "Fonte: Dataset sintético Symphony (n=200)"
+    caption = "Fonte: Dataset sintético HumanIza (n=200)"
   ) +
   scale_fill_brewer(type = "qual", palette = "Set2") +
   theme_symphony +
@@ -1087,7 +1087,7 @@ ggplot(all_interests, aes(x = reorder(interesse, freq), y = freq)) +
     subtitle = "Áreas de interesse dos colaboradores",
     x = "Interesses",
     y = "Frequência",
-    caption = "Dataset Symphony - Análise exploratória"
+    caption = "Dataset HumanIza - Análise exploratória"
   ) +
   theme_symphony
 ```
@@ -1101,7 +1101,7 @@ total_mentors <- sum(profiles$disponivel_mentoria == "True")
 mentor_rate <- round(total_mentors / total_profiles * 100, 1)
 dept_balance <- max(table(profiles$departamento)) - min(table(profiles$departamento))
 
-cat("🎯 RESUMO EXECUTIVO - DATASET SYMPHONY\n")
+cat("🎯 RESUMO EXECUTIVO - DATASET HUMANIZA\n")
 cat("=====================================\n\n")
 
 cat("📊 ESTATÍSTICAS GERAIS:\n")
@@ -1127,7 +1127,7 @@ cat("• Distribuição: Balanceada entre departamentos\n")
 cat("• Diversidade: 12 habilidades × 6 interesses\n")
 cat("• Seed reprodutível: 42 (resultados consistentes)\n\n")
 
-cat("✅ CONCLUSÃO: Dataset adequado para demonstração do MVP Symphony\n")
+cat("✅ CONCLUSÃO: Dataset adequado para demonstração do MVP HumanIza\n")
 ```
 
 ## Interpretação dos Resultados
@@ -1144,7 +1144,7 @@ cat("✅ CONCLUSÃO: Dataset adequado para demonstração do MVP Symphony\n")
 
 5. **Qualidade do Dataset**: Os dados sintéticos são suficientemente realistas para demonstrar a eficácia do sistema de recomendação ML.
 
-### Implicações para o Symphony:
+### Implicações para o HumanIza:
 
 - ✅ **Dataset aprovado** para demonstração do MVP
 - ✅ **Algoritmo ético** sem viés departamental  
@@ -1156,4 +1156,4 @@ cat("✅ CONCLUSÃO: Dataset adequado para demonstração do MVP Symphony\n")
 
 **Fim da Documentação Técnica**  
 *Documento gerado automaticamente em `r Sys.Date()`*  
-*Projeto Symphony - Global Solutions 2025.2*
+*Projeto HumanIza - Global Solutions 2025.2*

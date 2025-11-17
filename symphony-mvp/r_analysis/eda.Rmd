@@ -1,6 +1,6 @@
 ---
-title: "Symphony - Análise Exploratória de Dados"
-author: "Equipe Symphony"
+title: "HumanIza - Análise Exploratória de Dados"
+author: "Equipe HumanIza"
 date: "`r Sys.Date()`"
 output: html_document
 ---
@@ -144,7 +144,7 @@ cat("Taxa máxima de mentores:", max_rate, "%\n")
 cat("Disparate Impact:", round(disparate_impact, 3), "\n\n")
 
 if (disparate_impact >= 0.8) {
-  cat("✅ APROVADO: Disparate Impact >= 0.8 (sem viés significativo)\n")
+  cat("**✅ CONCLUSÃO: Dataset adequado para demonstração do MVP HumanIza**\n")
 } else {
   cat("⚠️ ATENÇÃO: Disparate Impact < 0.8 (possível viés entre departamentos)\n")
 }

@@ -1,4 +1,4 @@
-# 🎥 Roteiro de Vídeo - Symphony MVP
+# 🎥 Roteiro de Vídeo - HumanIza MVP
 ## Duração: 5-7 minutos
 
 ---
@@ -24,11 +24,11 @@
 
 **[TELA: Você falando ou apresentação]**
 
-> "Olá! Sou [seu nome] e vou apresentar o **Symphony**, nossa solução para o desafio Global Solutions 2025 sobre o Futuro do Trabalho."
+> "Olá! Sou [seu nome] e vou apresentar o **HumanIza**, nossa solução para o desafio Global Solutions 2025 sobre o Futuro do Trabalho."
 
-> "O Symphony é uma plataforma inteligente que torna o onboarding mais humano, inclusivo e sustentável, combinando três eixos: chatbot com IA, recomendação de mentores e gamificação."
+> "O HumanIza é uma plataforma inteligente que torna o onboarding mais humano, inclusivo e sustentável, combinando três eixos: chatbot com IA, recomendação de mentores e gamificação."
 
-**[MOSTRAR: Tela inicial do Symphony]**
+**[MOSTRAR: Tela inicial do HumanIza]**
 
 ---
 
@@ -42,21 +42,21 @@
 
 ---
 
-### PARTE 2: DEMO DO CHAT - "MAESTRO" (1m 30s)
+### PARTE 2: DEMO DO CHAT - "IZA" (1m 30s)
 
 **[TELA: Navegador com Symphony aberto]**
 
-> "Vou demonstrar as três funcionalidades principais. Primeira: o chat com o Maestro, nosso assistente de IA."
+> "Vou demonstrar as três funcionalidades principais. Primeira: o chat com a Iza, nossa assistente de IA."
 
 **[FAZER]:**
-1. Clicar na aba "Chat com Maestro"
+1. Clicar na aba "Chat com Iza"
 2. Digitar: **"quais são os benefícios?"**
 3. Enviar e mostrar resposta da IA
 4. Digitar: **"qual o horário de trabalho?"**
 5. Enviar e mostrar resposta
 
 **[NARRAR enquanto digita]:**
-> "O Maestro usa a API Gemini do Google para responder perguntas sobre a empresa. Ele tem acesso a uma base de conhecimento com FAQs, políticas e cultura organizacional."
+> "A Iza usa a API Gemini do Google para responder perguntas sobre a empresa. Ela tem acesso a uma base de conhecimento com FAQs, políticas e cultura organizacional."
 
 > "Veja como a resposta é natural e contextualizada. Isso reduz a carga do RH e dá autonomia ao colaborador."
 
@@ -175,7 +175,7 @@
 
 **[TELA: Você falando ou dashboard simulado]**
 
-> "Com o Symphony, estimamos:"
+> "Com o HumanIza, estimamos:"
 > - Aumento de 30% na conclusão de tarefas de onboarding na primeira semana
 > - Redução de 50% nas dúvidas enviadas ao RH
 > - Mais de 80% dos novos colaboradores recebem pelo menos 2 sugestões de mentores
@@ -189,13 +189,13 @@
 
 **[TELA: Você falando]**
 
-> "O Symphony é uma prova de conceito funcional que mostra como a tecnologia pode humanizar o trabalho, não apenas automatizá-lo."
+> "O HumanIza é uma prova de conceito funcional que mostra como a tecnologia pode humanizar o trabalho, não apenas automatizá-lo."
 
 > "Todo o código está no GitHub [mostrar README], com instruções de instalação e documentação completa."
 
 > "Obrigado! Estou à disposição para dúvidas."
 
-**[TELA FINAL: Mostrar aplicação rodando ou logo do Symphony]**
+**[TELA FINAL: Mostrar aplicação rodando ou logo do HumanIza]**
 
 ---
 
@@ -242,7 +242,7 @@
 ## 🎬 EXEMPLO DE FALAS PRONTAS
 
 ### Para o Chat:
-> "Vou fazer uma pergunta simples: 'quais são os benefícios?'. O Maestro acessa a base de conhecimento e retorna uma resposta natural, citando vale-refeição, plano de saúde e gympass. Simples e eficaz."
+> "Vou fazer uma pergunta simples: 'quais são os benefícios?'. A Iza acessa a base de conhecimento e retorna uma resposta natural, citando vale-refeição, plano de saúde e gympass. Simples e eficaz."
 
 ### Para o Matching:
 > "Agora vou buscar mentores com minhas habilidades: Python, Liderança e Comunicação. Interesses: Inovação e Tecnologia. Clico em buscar... e em 2 segundos temos 3 sugestões com 85%, 72% e 68% de match. Cada uma explica o porquê: 'skills em comum: Liderança, Python, Inovação'."

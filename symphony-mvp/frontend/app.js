@@ -37,7 +37,7 @@ async function sendMessage() {
     // Mostrar loading
     messagesDiv.innerHTML += `
         <div class="message bot" id="loading">
-            <strong>Maestro:</strong> Pensando... 💭
+            <strong>Iza:</strong> Pensando... 💭
         </div>
     `;
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
@@ -59,7 +59,7 @@ async function sendMessage() {
         // Adicionar resposta
         messagesDiv.innerHTML += `
             <div class="message bot">
-                <strong>Maestro:</strong> ${data.answer}
+                <strong>Iza:</strong> ${data.answer}
             </div>
         `;
         messagesDiv.scrollTop = messagesDiv.scrollHeight;
@@ -68,7 +68,7 @@ async function sendMessage() {
         document.getElementById('loading').remove();
         messagesDiv.innerHTML += `
             <div class="message bot">
-                <strong>Maestro:</strong> ⚠️ Erro ao conectar com o servidor. Certifique-se de que o backend está rodando em http://localhost:5000
+                <strong>Iza:</strong> ⚠️ Erro ao conectar com o servidor. Certifique-se de que o backend está rodando em http://localhost:5001
             </div>
         `;
     }

@@ -1,5 +1,5 @@
 """
-Backend Flask simples para o Symphony MVP
+Backend Flask simples para o HumanIza MVP
 Endpoints: /chat, /recommend, /profiles
 """
 
@@ -82,7 +82,7 @@ def chat():
     # Se não encontrar, usar Gemini
     if model:
         try:
-            prompt = f"""Você é o Maestro, assistente de RH amigável da empresa Symphony.
+            prompt = f"""Você é a Iza, assistente de RH amigável da empresa HumanIza.
 Responda de forma breve e útil (máximo 3 frases):
 
 Pergunta: {question}
@@ -182,7 +182,7 @@ def health():
     })
 
 if __name__ == '__main__':
-    print("\n🎵 Symphony Backend iniciado!")
+    print("\n🤝 HumanIza Backend iniciado!")
     print("📍 Endpoints disponíveis:")
     print("   - POST /chat - Chatbot")
     print("   - POST /recommend - Recomendação de mentores")
