@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>HumanIza</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Iza – Assistente de RH</h1>
+    </header>
+
+    <!-- NAV -->
+    <nav>
+        <button class="tab active" onclick="showTab('chat')">Chat</button>
+        <button class="tab" onclick="showTab('mentores')">Mentores</button>
+        <button class="tab" onclick="showTab('missoes')">Missões</button>
+    </nav>
+
+    <!-- CHAT TAB -->
+    <section id="chat-tab" class="tab-content active">
+        <div id="chat-messages" class="chat-box"></div>
+        <div class="chat-input">
+            <input type="text" id="question" placeholder="Digite sua pergunta...">
+            <button onclick="sendMessage()">Enviar</button>
+        </div>
+    </section>
+
+    <!-- MENTORES TAB -->
+    <section id="mentores-tab" class="tab-content">
+        <h2>Recomendação de Mentores</h2>
+        <input type="text" id="skills" placeholder="Suas habilidades">
+        <input type="text" id="interests" placeholder="Seus interesses">
+        <button class="btn-primary" onclick="findMentors()">Buscar Mentores</button>
+        <div id="recommendations"></div>
+    </section>
+
+    <!-- MISSÕES TAB -->
+    <section id="missoes-tab" class="tab-content">
+        <h2>Missões</h2>
+        <div class="mission">
+            <input type="checkbox" id="conhecer_time" onchange="updateProgress()">
+            <label for="conhecer_time">Conhecer sua equipe</label>
+        </div>
+        <div class="mission">
+            <input type="checkbox" id="ler_cultura" onchange="updateProgress()">
+            <label for="ler_cultura">Ler sobre a cultura da empresa</label>
+        </div>
+        <div class="mission">
+            <input type="checkbox" id="falar_mentor" onchange="updateProgress()">
+            <label for="falar_mentor">Conversar com um mentor</label>
+        </div>
+
+        <div class="progress-bar">
+            <div id="progress-fill"></div>
+        </div>
+        <span id="progress-text">0/3 missões</span>
+        <p id="badge-status"></p>
+    </section>
+
+    <script src="app.js"></script>
+</body>
+</html>

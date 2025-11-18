@@ -45,7 +45,7 @@ def main():
     profiles = [generate_profile(i) for i in range(1, NUM_PROFILES + 1)]
     
     # Salvar em CSV
-    with open('profiles.csv', 'w', newline='', encoding='utf-8') as f:
+    with open('data/profiles.csv', 'w', newline='', encoding='utf-8') as f:
         fieldnames = ['id', 'nome', 'departamento', 'cargo', 'habilidades', 'interesses', 'disponivel_mentoria']
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         
