@@ -1,160 +1,180 @@
 ---
-title: "HumanIza - Análise Exploratória de Dados"
-author: "Equipe HumanIza"
+title: "Symphony - Análise Exploratória e Ética do Dataset"
+author: "Equipe Symphony - AI Challenge"
 date: "`r Sys.Date()`"
-output: html_document
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
-library(tidyverse)
-library(knitr)
-```
+# Configuração do ambiente R
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, 
+                      fig.width = 10, fig.height = 6, 
+                      dev = 'png')
 
-# Análise do Dataset de Perfis
+# Carregar bibliotecas necessárias
+library(tidyverse)    # Manipulação de dados e visualização (dplyr, ggplot2)
+library(knitr)        # Tabelas formatadas
+library(scales)       # Formatação de escalas
+library(wordcloud2)   # Visualização de dados textuais (interativa)
 
-## 1. Carregamento dos Dados
 
-```{r load-data}
-# Carregar dados
+
+# Definir tema personalizado para gráficos
+theme_symphony <- theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 14, face = "bold", color = "#4A4A4A"),
+    plot.subtitle = element_text(hjust = 0.5, size = 10),
+    axis.text = element_text(size = 10),
+    legend.position = "bottom"
+  )
+
+# Carregar dados do CSV (Ajuste o caminho se necessário, e.g., '../data/profiles.csv')
 profiles <- read.csv("../data/profiles.csv", stringsAsFactors = FALSE)
 
-# Resumo
+# Resumo da Estrutura
+cat("📊 RESUMO DO DATASET\n")
 cat("Total de perfis:", nrow(profiles), "\n")
-cat("Colunas:", ncol(profiles), "\n")
+cat("Período de análise:", Sys.Date(), "\n\n")
 
-kable(head(profiles, 5), caption = "Primeiras 5 linhas do dataset")
-```
-
-## 2. Distribuição por Departamento
-
-```{r dept-distribution}
-dept_count <- profiles %>%
-  group_by(departamento) %>%
-  summarise(n = n()) %>%
-  mutate(percentual = round(n / sum(n) * 100, 1))
-
-kable(dept_count, caption = "Distribuição por Departamento")
-
-ggplot(dept_count, aes(x = reorder(departamento, n), y = n, fill = departamento)) +
-  geom_col() +
-  geom_text(aes(label = paste0(n, " (", percentual, "%)")), hjust = -0.1) +
-  coord_flip() +
-  theme_minimal() +
-  labs(title = "Distribuição de Perfis por Departamento",
-       x = "Departamento",
-       y = "Quantidade") +
-  theme(legend.position = "none")
-```
-
-## 3. Distribuição por Cargo
-
-```{r position-distribution}
-pos_count <- profiles %>%
-  group_by(cargo) %>%
-  summarise(n = n()) %>%
-  mutate(percentual = round(n / sum(n) * 100, 1))
-
-kable(pos_count, caption = "Distribuição por Cargo")
-
-ggplot(pos_count, aes(x = "", y = n, fill = cargo)) +
-  geom_col(width = 1) +
-  coord_polar("y") +
-  theme_void() +
-  labs(title = "Distribuição de Cargos") +
-  geom_text(aes(label = paste0(cargo, "\n", percentual, "%")), 
-            position = position_stack(vjust = 0.5))
-```
-
-## 4. Disponibilidade para Mentoria
-
-```{r mentorship}
-mentorship <- profiles %>%
-  group_by(disponivel_mentoria) %>%
-  summarise(n = n()) %>%
-  mutate(percentual = round(n / sum(n) * 100, 1))
-
-kable(mentorship, caption = "Disponibilidade para Mentoria")
-```
-
-## 5. Análise de Habilidades
-
-```{r skills}
-# Extrair habilidades individuais
-all_skills <- profiles %>%
-  pull(habilidades) %>%
-  str_split(", ") %>%
-  unlist() %>%
-  str_trim()
-
-skills_count <- data.frame(habilidade = all_skills) %>%
-  group_by(habilidade) %>%
-  summarise(frequencia = n()) %>%
-  arrange(desc(frequencia)) %>%
-  head(10)
-
-kable(skills_count, caption = "Top 10 Habilidades Mais Comuns")
-
-ggplot(skills_count, aes(x = reorder(habilidade, frequencia), y = frequencia)) +
-  geom_col(fill = "#667eea") +
-  coord_flip() +
-  theme_minimal() +
-  labs(title = "Top 10 Habilidades",
-       x = "Habilidade",
-       y = "Frequência")
-```
-
-## 6. Métrica de Fairness Básica
-
-```{r fairness}
-# Distribuição de mentores por departamento
-mentors_by_dept <- profiles %>%
-  filter(disponivel_mentoria == TRUE) %>%
-  group_by(departamento) %>%
-  summarise(mentores = n()) %>%
-  left_join(dept_count %>% select(departamento, total = n), by = "departamento") %>%
-  mutate(percentual_mentores = round(mentores / total * 100, 1))
-
-kable(mentors_by_dept, caption = "Distribuição de Mentores por Departamento")
-
-ggplot(mentors_by_dept, aes(x = departamento, y = percentual_mentores, fill = departamento)) +
-  geom_col() +
-  geom_hline(yintercept = 50, linetype = "dashed", color = "red") +
-  theme_minimal() +
-  labs(title = "% de Mentores por Departamento",
-       subtitle = "Linha vermelha = 50% (ideal de equilíbrio)",
-       x = "Departamento",
-       y = "% de Mentores") +
-  theme(legend.position = "none")
-```
-
-### Interpretação de Fairness
-
-```{r fairness-interpretation}
-cat("\n=== Análise de Equidade ===\n\n")
-
-# Calcular disparate impact simples
-mentor_rates <- mentors_by_dept$percentual_mentores
-min_rate <- min(mentor_rates)
-max_rate <- max(mentor_rates)
-disparate_impact <- min_rate / max_rate
-
-cat("Taxa mínima de mentores:", min_rate, "%\n")
-cat("Taxa máxima de mentores:", max_rate, "%\n")
-cat("Disparate Impact:", round(disparate_impact, 3), "\n\n")
-
-if (disparate_impact >= 0.8) {
-  cat("**✅ CONCLUSÃO: Dataset adequado para demonstração do MVP HumanIza**\n")
-} else {
-  cat("⚠️ ATENÇÃO: Disparate Impact < 0.8 (possível viés entre departamentos)\n")
+# Função auxiliar para extrair e contar termos
+extract_and_count <- function(column, df) {
+  df[[column]] %>%
+    str_split(", ") %>%
+    unlist() %>%
+    str_trim() %>%
+    table() %>%
+    as.data.frame() %>%
+    # Renomeia para 'termo' para evitar conflito com 'habilidade'
+    rename(termo = ".", freq = Freq) %>% 
+    arrange(desc(freq)) %>%
+    mutate(percentual = round(freq / nrow(df) * 100, 1))
 }
 ```
+```{r dept_dist}
+dept_stats <- profiles %>%
+  group_by(departamento) %>%
+  summarise(
+    n = n(),
+    percentual = round(n / nrow(profiles) * 100, 1),
+    mentores_disponiveis = sum(disponivel_mentoria == "True"),
+    taxa_mentoria = round(mentores_disponiveis / n * 100, 1)
+  ) %>%
+  arrange(desc(n))
 
-## 7. Conclusões
+kable(dept_stats, 
+      caption = "📈 Distribuição e Capacidade de Mentoria por Departamento",
+      col.names = c("Departamento", "Total", "% do Total", "Mentores", "% Mentoria"))
 
-- Dataset com **`r nrow(profiles)` perfis** distribuídos em **`r length(unique(profiles$departamento))` departamentos**
-- **`r sum(profiles$disponivel_mentoria == TRUE)` mentores disponíveis** (`r round(sum(profiles$disponivel_mentoria == TRUE) / nrow(profiles) * 100, 1)`%)
-- Habilidade mais comum: **`r skills_count$habilidade[1]`** (aparece `r skills_count$frequencia[1]` vezes)
-- Fairness: Disparate Impact = **`r round(disparate_impact, 3)`** (objetivo: ≥ 0.8)
+ggplot(dept_stats, aes(x = reorder(departamento, n), y = n, fill = departamento)) +
+  geom_col(alpha = 0.8) +
+  geom_text(aes(label = paste0(n, "\n(", percentual, "%)")), 
+            vjust = -0.3, size = 4, fontface = "bold") +
+  labs(
+    title = "📊 Distribuição de Perfis por Departamento",
+    subtitle = "Balanceamento essencial para evitar vieses departamentais",
+    x = "Departamento",
+    y = "Número de Perfis"
+  ) +
+  scale_fill_brewer(type = "qual", palette = "Set2") +
+  theme_symphony +
+  theme(legend.position = "none")
+```
+```{r skill_ranking}
+all_skills <- extract_and_count("habilidades", profiles)
+top_skills <- head(all_skills, 10)
 
-**Recomendação para produção:** Monitorar distribuição de matches entre departamentos para garantir conexões interdepartamentais e evitar silos.
+# CORREÇÃO: Usando 'Termo' na tabela
+kable(top_skills, 
+      caption = "🏆 Top 10 Habilidades Mais Comuns",
+      col.names = c("Termo", "Frequência", "% dos Perfis"))
+
+# CORREÇÃO: Usando 'termo' no eixo X do ggplot
+ggplot(top_skills, aes(x = reorder(termo, freq), y = freq)) + 
+  geom_col(fill = "#6f42c1", alpha = 0.8) +
+  geom_text(aes(label = paste0(freq, "\n(", percentual, "%)")), 
+            hjust = -0.1, size = 3.5) +
+  coord_flip() +
+  labs(
+    title = "🎯 Ranking das Habilidades Mais Comuns",
+    x = "Habilidades",
+    y = "Número de Perfis"
+  ) +
+  theme_symphony
+```
+
+```{r word_cloud_skill}
+cat("\n☁️ Visualização de Habilidades (Word Cloud)\n")
+word_cloud_data <- all_skills %>%
+  # Renomeia 'termo' para 'word' (o que wordcloud2 espera)
+  rename(word = termo, freq = freq) 
+
+# Gerar o Word Cloud interativo para o relatório HTML
+wordcloud2(data = word_cloud_data, 
+           size = 1.0, 
+           minRotation = -pi/6, 
+           maxRotation = pi/6,
+           rotateRatio = 0.9, 
+           color = 'random-light', 
+           backgroundColor = "white")
+```
+
+```{r fairness_metrics}
+fairness_metrics <- profiles %>%
+  group_by(departamento) %>%
+  summarise(
+    total_perfis = n(),
+    mentores_disponiveis = sum(disponivel_mentoria == "True"),
+    taxa_mentoria = mentores_disponiveis / total_perfis,
+    .groups = 'drop'
+  )
+
+# Disparate Impact: razão entre menor e maior taxa de mentoria (DI >= 0.80 é aceito)
+min_rate <- min(fairness_metrics$taxa_mentoria)
+max_rate <- max(fairness_metrics$taxa_mentoria)
+disparate_impact <- min_rate / max_rate
+
+cat("⚖️ MÉTRICAS DE FAIRNESS\n")
+cat("Taxa mínima de mentoria:", round(min_rate * 100, 1), "%\n")
+cat("Taxa máxima de mentoria:", round(max_rate * 100, 1), "%\n")
+cat("Disparate Impact (DI):", round(disparate_impact, 3), "\n")
+cat("Status:", ifelse(disparate_impact >= 0.8, "✅ APROVADO", "❌ REPROVADO"), 
+    "(meta: DI ≥ 0.80 para equidade)\n\n")
+```
+
+```{r ratio_fairness}
+# Razão de Paridade: Taxa do Grupo / Taxa de Referência (Taxa Máxima)
+reference_rate <- max(fairness_metrics$taxa_mentoria)
+
+fairness_metrics <- fairness_metrics %>%
+  mutate(
+    parity_ratio = taxa_mentoria / reference_rate
+  )
+
+kable(fairness_metrics %>% 
+        select(departamento, total_perfis, taxa_mentoria, parity_ratio), 
+      caption = "Detalhamento da Paridade Algorítmica",
+      col.names = c("Departamento", "Total", "Taxa Mentoria", "Razão Paridade"))
+
+ggplot(fairness_metrics, aes(x = departamento, y = taxa_mentoria, fill = departamento)) +
+  geom_col(alpha = 0.8) +
+  geom_hline(yintercept = max_rate * 0.8, linetype = "dotted", color = "orange", size = 1) +
+  geom_hline(yintercept = max_rate, linetype = "dashed", color = "red", size = 1) +
+  geom_text(aes(label = scales::percent(taxa_mentoria, accuracy = 1)), 
+            vjust = -0.3, size = 4, fontface = "bold") +
+  scale_y_continuous(labels = scales::percent_format()) +
+  labs(
+    title = "⚖️ Análise de Fairness - Taxa de Mentoria por Departamento",
+    subtitle = paste0("Disparate Impact = ", round(disparate_impact, 3), 
+                     " (", ifelse(disparate_impact >= 0.8, "✅ Aprovado", "❌ Reprovado"), ")"),
+    x = "Departamento",
+    y = "Taxa de Disponibilidade para Mentoria",
+    caption = "Linha pontilhada: Limite de aceitação (80% da taxa máxima)"
+  ) +
+  scale_fill_brewer(type = "qual", palette = "Pastel1") +
+  theme_symphony +
+  theme(legend.position = "none")
+```
