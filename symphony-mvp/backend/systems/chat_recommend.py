@@ -1,17 +1,15 @@
 import csv
 import os
-import numpy as np
+import unicodedata
 from flask import jsonify
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
-
 
 # ============================================================
 # LOAD PROFILES
 # ============================================================
 
 PROFILES = []
-PROFILES_PATH = os.path.join(os.path.dirname(__file__), '..', 'data', 'profiles.csv')
+PROFILES_PATH = os.path.join(os.path.dirname(__file__), "..", '..', 'data', 'profiles.csv')
+print("DEBUG - Caminho do CSV:", PROFILES_PATH)
 
 def load_profiles():
     global PROFILES
@@ -20,12 +18,13 @@ def load_profiles():
             with open(PROFILES_PATH, 'r', encoding='utf-8') as f:
                 reader = csv.DictReader(f)
                 PROFILES = list(reader)
-                print(f"Perfis carregados: {len(PROFILES)}")
+                print(f"✅ Perfis carregados: {len(PROFILES)}")
         except Exception as e:
-            print("Erro ao carregar profiles:", e)
+            print("❌ Erro ao carregar profiles:", e)
+    else:
+        print(f"⚠️ Arquivo {PROFILES_PATH} não encontrado")
 
 load_profiles()
-
 
 # ============================================================
 # FAQS
@@ -39,6 +38,15 @@ FAQS = {
     "treinamento": "Oferecemos cursos, workshop e orçamento anual de R$1.000."
 }
 
+# ============================================================
+# UTILITÁRIOS
+# ============================================================
+
+def normalize_text(text):
+    """Remove acentos, converte para minúsculas e remove espaços extras"""
+    text = text.strip().lower()
+    text = ''.join(c for c in unicodedata.normalize('NFD', text) if unicodedata.category(c) != 'Mn')
+    return text
 
 # ============================================================
 # CHAT
@@ -64,66 +72,81 @@ def chat_logic(request, GEMINI_MODEL):
             return jsonify({'answer': response.text, 'source': 'gemini'})
 
         except Exception as e:
-            print("ERRO GEMINI:", e)
+            print("❌ ERRO GEMINI:", e)
             return jsonify({'answer': "Erro ao acessar modelo.", 'source': 'error'})
 
     # Caso não tenha modelo
     return jsonify({'answer': "Gemini não configurado.", 'source': 'mock'})
 
-
 # ============================================================
-# RECOMMENDER
+# RECOMMENDER DE MENTORES
 # ============================================================
 
 def recommend_logic(request):
     if request.method == 'OPTIONS':
         return '', 204
 
-    data = request.json or {}
-    user_skills = data.get('skills', '').lower()
-    user_interests = data.get('interests', '').lower()
+    try:
+        data = request.json or {}
+        print("DEBUG - Dados recebidos:", data)
 
-    if not PROFILES:
-        return jsonify({'error': 'Perfis não carregados'}), 500
+        # Separar por vírgula ou espaço, remover vazios e normalizar
+        user_skills = set()
+        for s in data.get('skills', '').replace(',', ' ').split():
+            s = normalize_text(s)
+            if s: user_skills.add(s)
 
-    user_text = f"{user_skills} {user_interests}"
+        user_interests = set()
+        for i in data.get('interests', '').replace(',', ' ').split():
+            i = normalize_text(i)
+            if i: user_interests.add(i)
 
-    mentors = [p for p in PROFILES if p.get('disponivel_mentoria') == 'True']
+        print("DEBUG - Skills do usuário:", user_skills)
+        print("DEBUG - Interesses do usuário:", user_interests)
 
-    mentor_texts = [
-        f"{m.get('habilidades', '')} {m.get('interesses', '')}".lower()
-        for m in mentors
-    ]
+        if not PROFILES:
+            print("⚠️ PROFILES vazio")
+            return jsonify({'error': 'Perfis não carregados'}), 500
 
-    vectorizer = TfidfVectorizer()
-    all_texts = [user_text] + mentor_texts
-    tfidf_matrix = vectorizer.fit_transform(all_texts)
+        mentors = [p for p in PROFILES if p.get('disponivel_mentoria') == 'True']
+        print(f"DEBUG - Mentores disponíveis: {len(mentors)}")
 
-    similarities = cosine_similarity(tfidf_matrix[0:1], tfidf_matrix[1:])[0]
-    top_indices = np.argsort(similarities)[-3:][::-1]
+        recommendations = []
 
-    recommendations = []
+        for mentor in mentors:
+            # Normalizar skills/interesses do mentor
+            mentor_skills = set(normalize_text(s) for s in mentor.get('habilidades', '').replace(',', ' ').split())
+            mentor_interests = set(normalize_text(s) for s in mentor.get('interesses', '').replace(',', ' ').split())
 
-    for idx in top_indices:
-        mentor = mentors[idx]
-        score = float(similarities[idx])
+            common_skills = user_skills & mentor_skills
+            common_interests = user_interests & mentor_interests
 
-        user_sk = {s.strip() for s in user_skills.split(',')}
-        mentor_sk = {s.strip() for s in mentor.get('habilidades', '').lower().split(',')}
-        common = user_sk & mentor_sk
+            score = len(common_skills) * 10 + len(common_interests) * 5
 
-        recommendations.append({
-            'id': mentor.get('id'),
-            'nome': mentor.get('nome'),
-            'departamento': mentor.get('departamento'),
-            'cargo': mentor.get('cargo'),
-            'score': int(score * 100),
-            'habilidades': mentor.get('habilidades', ''),
-            'interesses': mentor.get('interesses', ''),
-            'explicacao': f"Skills em comum: {', '.join(common) if common else 'Perfil complementar'}"
-        })
+            if score > 0:
+                recommendations.append({
+                    'id': mentor.get('id'),
+                    'nome': mentor.get('nome'),
+                    'departamento': mentor.get('departamento'),
+                    'cargo': mentor.get('cargo'),
+                    'score': score,
+                    'habilidades': mentor.get('habilidades'),
+                    'interesses': mentor.get('interesses'),
+                    'explicacao': f"Skills em comum: {', '.join(common_skills) if common_skills else 'Perfil complementar'}; "
+                                  f"Interesses em comum: {', '.join(common_interests) if common_interests else 'Nenhum'}"
+                })
 
-    return jsonify({'recommendations': recommendations})
+        recommendations.sort(key=lambda x: x['score'], reverse=True)
+        print("DEBUG - Recommendations:", recommendations)
+
+        if not recommendations:
+            return jsonify({'recommendations': [], 'message': 'Nenhum mentor encontrado. Tente outras habilidades ou interesses.'})
+
+        return jsonify({'recommendations': recommendations[:3]})
+
+    except Exception as e:
+        print("❌ ERRO recommend_logic:", e)
+        return jsonify({'error': 'Erro interno ao processar recomendação', 'details': str(e)}), 500
 
 
 # ============================================================

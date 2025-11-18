@@ -12,7 +12,6 @@ from systems.chat_recommend import (
     recommend_logic,
     get_profiles_logic
 )
-
 from systems.maestro import MAESTRO
 
 # ============================================================
@@ -88,7 +87,6 @@ def maestro_endpoint():
 
 @app.route("/missions", methods=["POST", "OPTIONS"])
 def missions():
-    # Preflight CORS
     if request.method == "OPTIONS":
         return '', 204
 
@@ -96,9 +94,8 @@ def missions():
     mission_key = data.get("mission")
     completed = data.get("completed", False)
     
-    # Apenas log para debug (pode ser salvo em DB futuramente)
+    # Aqui você pode salvar em DB futuramente
     print(f"Missão: {mission_key}, completada: {completed}")
-
     return jsonify({"status": "ok"})
 
 @app.route("/health")
@@ -116,4 +113,12 @@ def health():
 
 if __name__ == "__main__":
     print("\n🔥 Backend HumanIza + MaestroBot iniciado!\n")
+    print("📍 Endpoints disponíveis:")
+    print("   - POST /chat")
+    print("   - POST /recommend")
+    print("   - GET /profiles")
+    print("   - POST /maestro")
+    print("   - POST /missions")
+    print("   - GET /health\n")
+    
     app.run(debug=True, port=5001, host="0.0.0.0")
