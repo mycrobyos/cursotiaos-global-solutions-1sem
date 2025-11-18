@@ -12,6 +12,26 @@ function showTab(tabName, event) {
 
     document.getElementById(`${tabName}-tab`).classList.add('active');
     if (event) event.currentTarget.classList.add('active');
+
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    document.querySelectorAll('.tab').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    // Mostrar aba selecionada
+    document.getElementById(`${tabName}-tab`).classList.add('active');
+    // Adicione esta checagem para evitar erro no carregamento inicial
+    if (event && event.target) {
+        event.target.classList.add('active');
+    }
+
+    // Ação específica para o Dashboard (Opcional: carrega iframe)
+    if (tabName === 'dashboard') {
+        // A Word Cloud é carregada através do iframe do relatório R gerado.
+        // O iframe deve ser configurado para carregar o arquivo eda.html gerado pelo R.
+    }
 }
 
 // =========================

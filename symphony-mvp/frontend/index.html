@@ -59,6 +59,37 @@
         <p id="badge-status"></p>
     </section>
 
+    <!-- NAV R Analysis -->
+     <section>
+        <button class="tab" onclick="showTab('dashboard')">📊 Dashboard Analítico</button>
+
+        <div id="dashboard-tab" class="tab-content">
+            <h2>Estatísticas e Ética do Symphony (Visão RH)</h2>
+            <p>Resultados da Análise de Dados R para validar a performance e equidade do sistema.</p>
+            
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h4>Disparate Impact (Fairness)</h4>
+                    <p id="di-value" class="big-number">0.95 ✅</p>
+                    <p>Meta: &ge; 0.80 (Indica equidade entre grupos)</p>
+                </div>
+                <div class="metric-card">
+                    <h4>Taxa de Cobertura (Mentoria)</h4>
+                    <p id="coverage-value" class="big-number">100%</p>
+                    <p>Garante que todos os novos usuários recebem sugestões.</p>
+                </div>
+                <div class="metric-card">
+                    <h4>Percentual de Mentores</h4>
+                    <p id="mentor-rate" class="big-number">50%</p>
+                    <p>Capacidade do sistema de conectar novos talentos.</p>
+                </div>
+            </div>
+
+            <h3>☁️ Visualização de Habilidades (Word Cloud)</h3>
+            <iframe id="wordcloud-iframe" src="./analises/eda.html" frameborder="0" style="width: 100%; height: 500px; border: none;"></iframe>
+        </div>
+     </section>
+
     <script src="app.js"></script>
 </body>
 </html>
