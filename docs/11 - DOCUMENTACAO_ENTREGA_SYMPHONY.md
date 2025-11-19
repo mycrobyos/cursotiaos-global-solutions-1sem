@@ -8,17 +8,18 @@
 **Contexto:** Global Solutions 2025.2 - O Futuro do Trabalho  
 **Tema:** Como tornar o trabalho mais humano, inclusivo e sustentável  
 
-### Grupo e Integrantes
-- **Nome do Grupo:** [AGENTES IA]  
-- **Integrante 1:** [DANIEL EMILIO BAIÃO] - RM [567686]  
-- **Integrante 2:** [NOME COMPLETO] - RM [NÚMERO]  
-- **Integrante 3:** [NOME COMPLETO] - RM [NÚMERO]  
-- **Integrante 4:** [NOME COMPLETO] - RM [NÚMERO]  
-- **Integrante 5:** [NOME COMPLETO] - RM [NÚMERO]  
+## **GRUPO 10 - AGENTES IA**
 
-### Links do Projeto
-- **🎥 Vídeo de Demonstração:** [A SER DISPONIBILIZADO]
-- **💻 Repositório GitHub (PRIVADO):** [LINK DO REPOSITÓRIO COM "entregafiap" ADICIONADO]
+### Integrantes por ordem alfabética:
+- **Daniel Emilio Baião - RM567686**
+- **Erik Criscuolo - RM [NÚMERO]**
+- **Hugo Rodrigues Carvalho Silva - RM [NÚMERO]**
+- **Marcus Vinícius Loureiro Garcia - RM [NÚMERO]**
+- **Sidney William de Paula Dias - RM [NÚMERO]**
+
+### Links do Projeto:
+- **💻 Repositório GitHub:** https://github.com/agentesiafiap/cursotiaos-global-solutions-1sem-grupo10.git
+- **🎥 Vídeo de Demonstração:** http://youtube.com
 
 ---
 
@@ -70,7 +71,7 @@ O HumanIza combina **três eixos temáticos** do desafio Global Solutions:
 
 ### Arquitetura da Solução
 
-O Symphony foi desenvolvido como uma aplicação web modular com três componentes principais:
+O HumanIza foi desenvolvido como uma aplicação web modular com três componentes principais:
 
 ```
 ┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
@@ -318,7 +319,7 @@ tfidf_matrix = vectorizer.fit_transform([user_text] + mentor_texts)
 
 ### Impacto Técnico Alcançado
 
-O Symphony demonstra com sucesso a **integração prática das 7 disciplinas** do curso em uma solução coesa e funcional. A combinação de **Python (backend)**, **Machine Learning (recomendações)**, **IA (chatbot)**, **R (análise)**, **Banco de Dados (estruturação)**, **Cybersecurity (proteção)** e **Formação Social (inclusão)** resultou em uma plataforma que vai além de um simples protótipo.
+O HumanIza demonstra com sucesso a **integração prática das 7 disciplinas** do curso em uma solução coesa e funcional. A combinação de **Python (backend)**, **Machine Learning (recomendações)**, **IA (chatbot)**, **R (análise)**, **Banco de Dados (estruturação)**, **Cybersecurity (proteção)** e **Formação Social (inclusão)** resultou em uma plataforma que vai além de um simples protótipo.
 
 **Principais conquistas técnicas:**
 - ✅ **API REST funcional** com 4 endpoints documentados
@@ -380,11 +381,11 @@ O projeto ataca diretamente os **três pilares do desafio Global Solutions** de 
 
 ### Considerações Finais
 
-O Symphony representa mais que uma solução técnica - é uma **proposta de transformação cultural** que posiciona a tecnologia como facilitadora de conexões humanas genuínas. Em um mundo cada vez mais digital, o projeto demonstra que a IA pode ser usada não para substituir a humanidade, mas para **amplificar nossa capacidade de cuidar uns dos outros**.
+O HumanIza representa mais que uma solução técnica - é uma **proposta de transformação cultural** que posiciona a tecnologia como facilitadora de conexões humanas genuínas. Em um mundo cada vez mais digital, o projeto demonstra que a IA pode ser usada não para substituir a humanidade, mas para **amplificar nossa capacidade de cuidar uns dos outros**.
 
 A integração bem-sucedida das disciplinas técnicas com princípios de formação social comprova que **soluções sustentáveis nascem da intersecção entre competência técnica e responsabilidade humana**.
 
-O futuro do trabalho será, de fato, **mais humano, mais inclusivo e mais sustentável** - e o Symphony oferece um caminho concreto para essa transformação.
+O futuro do trabalho será, de fato, **mais humano, mais inclusivo e mais sustentável** - e o HumanIza oferece um caminho concreto para essa transformação.
 
 ---
 
@@ -509,7 +510,7 @@ def recommend():
 load_profiles()
 
 if __name__ == '__main__':
-    print("\n🎵 Symphony Backend iniciado!")
+    print("\n🤝 HumanIza Backend iniciado!")
     print("📍 Endpoints disponíveis:")
     print("   - POST /chat - Chatbot com Gemini API")
     print("   - POST /recommend - Sistema de recomendação ML") 
@@ -651,11 +652,11 @@ function showTab(tabName) {
     event.target.classList.add('active');
 }
 
-// ============== CHAT COM MAESTRO ==============
+// ============== CHAT COM IZA ==============
 
 async function sendMessage() {
     """
-    Envia mensagem para o chatbot Maestro
+    Envia mensagem para o chatbot Iza
     Gerencia interface de loading e histórico de conversas
     """
     
@@ -679,7 +680,7 @@ async function sendMessage() {
     // Mostrar indicador de loading
     messagesDiv.innerHTML += `
         <div class="message bot" id="loading">
-            <strong>Maestro:</strong> Pensando... 💭
+            <strong>Iza:</strong> Pensando... 💭
         </div>
     `;
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
@@ -700,7 +701,7 @@ async function sendMessage() {
         document.getElementById('loading').remove();
         messagesDiv.innerHTML += `
             <div class="message bot">
-                <strong>Maestro:</strong> ${data.answer}
+                <strong>Iza:</strong> ${data.answer}
                 <small class="source">Fonte: ${data.source}</small>
             </div>
         `;
@@ -711,7 +712,7 @@ async function sendMessage() {
         document.getElementById('loading').remove();
         messagesDiv.innerHTML += `
             <div class="message bot error">
-                <strong>Maestro:</strong> ⚠️ Erro ao conectar com o servidor. 
+                <strong>Iza:</strong> ⚠️ Erro ao conectar com o servidor. 
                 Certifique-se de que o backend está rodando em http://localhost:5001
             </div>
         `;
@@ -919,7 +920,7 @@ library(ggplot2)      # Gráficos avançados
 library(scales)       # Formatação de escalas
 
 # Definir tema personalizado para gráficos
-theme_symphony <- theme_minimal() +
+theme_humaniza <- theme_minimal() +
   theme(
     plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
     axis.text = element_text(size = 12),
@@ -976,7 +977,7 @@ ggplot(dept_stats, aes(x = reorder(departamento, n), y = n, fill = departamento)
     caption = "Fonte: Dataset sintético HumanIza (n=200)"
   ) +
   scale_fill_brewer(type = "qual", palette = "Set2") +
-  theme_symphony +
+  theme_humaniza +
   theme(legend.position = "none")
 ```
 
@@ -1014,7 +1015,7 @@ ggplot(top_skills, aes(x = reorder(habilidade, freq), y = freq)) +
     y = "Número de Perfis",
     caption = "Base: 200 perfis sintéticos"
   ) +
-  theme_symphony
+  theme_humaniza
 ```
 
 ## 4. Análise de Fairness (Equidade Algorítmica)
@@ -1058,7 +1059,7 @@ ggplot(fairness_metrics, aes(x = departamento, y = taxa_mentoria, fill = departa
     caption = "Linha vermelha: 50% (referência)\nMeta de fairness: Disparate Impact ≥ 0.80"
   ) +
   scale_fill_brewer(type = "qual", palette = "Pastel1") +
-  theme_symphony +
+  theme_humaniza +
   theme(legend.position = "none")
 ```
 
@@ -1089,7 +1090,7 @@ ggplot(all_interests, aes(x = reorder(interesse, freq), y = freq)) +
     y = "Frequência",
     caption = "Dataset HumanIza - Análise exploratória"
   ) +
-  theme_symphony
+  theme_humaniza
 ```
 
 ## 6. Resumo Executivo
@@ -1154,6 +1155,5 @@ cat("✅ CONCLUSÃO: Dataset adequado para demonstração do MVP HumanIza\n")
 
 ---
 
-**Fim da Documentação Técnica**  
-*Documento gerado automaticamente em `r Sys.Date()`*  
+**Fim da Documentação Técnica** 
 *Projeto HumanIza - Global Solutions 2025.2*
