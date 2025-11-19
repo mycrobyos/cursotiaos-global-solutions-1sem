@@ -37,6 +37,29 @@ header p {
     font-size: 0.77em;
 }
 
+.header-links {
+    margin-top: 15px;
+}
+
+.dashboard-link {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.dashboard-link:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
 .tabs {
     display: flex;
     background: #f8f9fa;
